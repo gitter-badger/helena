@@ -44,7 +44,7 @@ Typical implementation would be:
   end
 ```
 
-## Configuring Helena
+## Configuration
 You can configure Helena using an initializer like this:
 ```ruby
 Helena.setup do |config|
