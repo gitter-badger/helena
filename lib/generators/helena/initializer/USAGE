@@ -1,0 +1,8 @@
+helena:initializerDescription:
+    Generates initializer for Helena
+
+Example:
+    rails generate helena:initializer helena.rb
+
+    This will create:
+       config/initializers/helena.rb

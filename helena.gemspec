@@ -30,6 +30,8 @@ survey/test development, longitudinal studies and instant feedback.'
   s.add_dependency 'simple_form', '~> 3.1.0.rc2'
   s.add_dependency 'breadcrumbs_on_rails', '~> 2.3'
   s.add_dependency 'rails-i18n', '~> 4.0'
+  s.add_dependency 'carrierwave', '~> 0.10'
+  s.add_dependency 'carrierwave-mongoid', '~> 0.7'
 
   s.add_development_dependency 'rspec-rails', '~> 3'
   s.add_development_dependency 'rspec-collection_matchers', '~> 1'

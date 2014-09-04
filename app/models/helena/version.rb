@@ -11,6 +11,7 @@ module Helena
 
     embeds_many :question_groups, class_name: 'Helena::QuestionGroup'
     embeds_many :sessions, class_name: 'Helena::Session'
+    embeds_many :file_resources, as: :file_resource, class_name: 'Helena::FileResource'
 
     embeds_one :survey_detail, class_name: 'Helena::SurveyDetail'
 

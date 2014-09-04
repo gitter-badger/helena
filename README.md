@@ -44,6 +44,19 @@ Typical implementation would be:
   end
 ```
 
+## Configuring Helena
+You can configure Helena using an initializer like this:
+```ruby
+Helena.setup do |config|
+  config.file_storage = :file # Configure carrierwave storage method
+end
+```
+
+If you're using Rails, create an initializer for this:
+
+```
+rails g helena:initializer helena.rb
+```
 ## TODOS
 * Support more question types, i.e Dates, Numeric inputs with validation, emails, ...
 * Customize question type views for each survey
