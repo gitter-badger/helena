@@ -1,0 +1,12 @@
+en:
+  mongoid:
+    models:
+      'helena/file_resource':
+        one: File resource
+        other: File resources
+
+    attributes:
+      'helena/file_resource':
+        created_at: Created at
+        source: File
+        _destroy: Delete

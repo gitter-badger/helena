@@ -11,12 +11,13 @@ module Helena
 
     embeds_many :question_groups, class_name: 'Helena::QuestionGroup'
     embeds_many :sessions, class_name: 'Helena::Session'
-    embeds_many :file_resources, as: :file_resource, class_name: 'Helena::FileResource'
+    embeds_many :file_resources, as: :file_resource, class_name: 'Helena::FileResource', cascade_callbacks: true
 
     embeds_one :survey_detail, class_name: 'Helena::SurveyDetail'
 
     accepts_nested_attributes_for :survey_detail
     accepts_nested_attributes_for :question_groups
+    accepts_nested_attributes_for :file_resources, reject_if: :all_blank, allow_destroy: true
 
     scope :without_base, -> { where(:version.gt => 0) }
 

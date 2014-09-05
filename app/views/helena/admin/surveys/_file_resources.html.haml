@@ -1,0 +1,23 @@
+%h3= t '.file_resources'
+.table-responsive
+  %table.table.file_resources
+    %thead
+      %tr
+        %th.created_at
+        %th.file_name
+        %th.delete
+    %tbody
+      = form.simple_fields_for :file_resources  do |file_resource|
+        %tr[file_resource.object]
+          - if file_resource.object.new_record?
+            %td.file_name{ colspan: 3 }
+              = file_resource.input :source, as: :file, label: false, wrapper: :horizontal_file_input
+          - else
+            %td.create_at
+              = time_ago_in_words file_resource.object.created_at
+            %td.source
+              = link_to file_resource.object.source.file.identifier, file_resource.object.source.url
+            %td.delete
+              - unless file_resource.object.new_record?
+                = file_resource.input :_destroy, as:    :boolean,
+                                                 label: Helena::FileResource.human_attribute_name(:_destroy)

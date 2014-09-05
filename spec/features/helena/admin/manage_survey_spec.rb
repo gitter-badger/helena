@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 feature 'Survey management' do
+
+  let(:text_file) { Rails.root.join '../../spec', 'support', 'files', 'test.txt' }
+
   scenario 'lists all surveys' do
     first_survey = create :survey, name: 'first', tag_list: 'foo, bar'
     first_survey.versions.create version: 0
@@ -36,12 +39,15 @@ feature 'Survey management' do
     fill_in 'Name', with: 'More crazy stuff...'
     fill_in 'Description', with: 'Once upon a time.'
     fill_in 'Tag list', with: 'english, foo, 42'
+    attach_file 'survey_versions_attributes_0_file_resources_attributes_0_source', text_file
 
     within '.breadcrumb' do
       expect(page).to have_text 'New Survey'
     end
 
     expect { click_button 'Save' }.to change { Helena::Survey.count }.by 1
+
+    expect(Helena::Survey.last.versions.first.file_resources.first.source.file.identifier).to eq 'test.txt'
   end
 
   scenario 'creates a new surveys errors without a name' do
@@ -66,6 +72,7 @@ feature 'Survey management' do
     fill_in 'Title', with: 'More crazy stuff...'
     fill_in 'Description', with: 'Once upon a time.'
     fill_in 'Tag list', with: 'english, foo, 42'
+    attach_file 'survey_versions_attributes_0_file_resources_attributes_0_source', text_file
 
     click_button 'Save'
 
@@ -74,6 +81,8 @@ feature 'Survey management' do
       expect(page).to have_text 'More crazy stuff...'
       expect(page).to have_text 'Once upon a time.'
     end
+
+    expect(base_version.reload.file_resources.first.source.file.identifier).to eq 'test.txt'
   end
 
   scenario 'edits a survey fails when name is empty' do

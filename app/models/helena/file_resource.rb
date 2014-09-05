@@ -2,7 +2,7 @@ module Helena
   class FileResource
     include Helena::Concerns::ApplicationModel
 
-    mount_uploader :file, Helena::FileResourceUploader
+    mount_uploader :source, Helena::FileResourceUploader
 
     embedded_in :file_resource, polymorphic: true
   end

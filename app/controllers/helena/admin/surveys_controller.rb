@@ -15,7 +15,7 @@ module Helena
       def new
         add_breadcrumb t('helena.admin.surveys.new')
         @survey = Helena::Survey.new
-        @survey.versions.build version: 0, survey_detail: Helena::SurveyDetail.new
+        @survey.versions.build version: 0, survey_detail: Helena::SurveyDetail.new, file_resources: [Helena::FileResource.new]
       end
 
       def create
@@ -33,6 +33,8 @@ module Helena
 
       def edit
         add_breadcrumb @survey.name
+
+        @survey.draft_version.file_resources.build
       end
 
       def update
@@ -66,8 +68,23 @@ module Helena
         add_breadcrumb Helena::Survey.model_name.human(count: 2), :admin_surveys_path
       end
 
+      def versions_attributes
+        [:version,
+         :id,
+         survey_detail_attributes: survey_detail_attributes,
+         file_resources_attributes: file_resources_attributes]
+      end
+
+      def survey_detail_attributes
+        [:title, :description]
+      end
+
+      def file_resources_attributes
+        [:id, :source, :_destroy]
+      end
+
       def survey_params
-        params.require(:survey).permit(:name, :tag_list, :language, versions_attributes: [:version, :id, survey_detail_attributes: [:title, :description]])
+        params.require(:survey).permit(:name, :tag_list, :language, versions_attributes: versions_attributes)
       end
 
       def load_survey

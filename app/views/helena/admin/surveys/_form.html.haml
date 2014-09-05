@@ -1,4 +1,4 @@
-= simple_form_for [:admin, @survey] do |f|
+= simple_form_for [:admin, @survey],  html: { multipart: true } do |f|
   = f.input :name
   = f.input :tag_list
   = f.input :language, collection: I18n.available_locales, include_blank: false
@@ -8,4 +8,7 @@
       = v.simple_fields_for :survey_detail do |detail|
         = detail.input :title
         = detail.input :description, as: :text, input_html: { cols: 60, rows: 10 }
+
+      = render 'file_resources', form: v
+
   = f.submit t('shared.save'), class: 'btn btn-success'
